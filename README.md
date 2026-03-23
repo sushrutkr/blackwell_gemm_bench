@@ -21,8 +21,7 @@ Implemented in **CUDA + WMMA + CUTLASS + CuTe** with a PyTorch interface.
 
 ## Why this GEMM?
 
-The FFN projection (`gate_proj` / `up_proj`) is the **#1 compute bottleneck**
-in Gemini/MoE inference — ~80% of total FLOPs. Shapes match Gemma-2 family:
+The FFN projection (`gate_proj` / `up_proj`)
 
 - `d_model = 4096`
 - `d_ff    = 16384` (4× expansion)
