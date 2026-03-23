@@ -1,3 +1,6 @@
+# Blackwell GEMM Benchmark — Gemini FFN Optimization
+
+Progressive GEMM optimization on **NVIDIA RTX PRO 6000 Blackwell (sm_90)**,
 
 Inspired by the Pallas matmul progressive optimization table from JAX docs.
 Implemented in **CUDA + WMMA + CUTLASS + CuTe** with a PyTorch interface.
