@@ -1,4 +1,4 @@
-# Blackwell GEMM Benchmark — Gemini FFN Optimization
+# Blackwell GEMM Benchmark
 
 Progressive GEMM optimization on **NVIDIA RTX PRO 6000 Blackwell (sm_90)**,
 
