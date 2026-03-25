@@ -1,6 +1,6 @@
 # Blackwell GEMM Benchmark
 
-Progressive GEMM optimization on **NVIDIA RTX PRO 6000 Blackwell (sm_90)**,
+Progressive GEMM optimization on **NVIDIA RTX PRO 6000 Blackwell**,
 
 Inspired by the Pallas matmul progressive optimization table from JAX docs.
 Implemented in **CUDA + WMMA + CUTLASS + CuTe** with a PyTorch interface.
@@ -11,14 +11,14 @@ Implemented in **CUDA + WMMA + CUTLASS + CuTe** with a PyTorch interface.
 
 | Kernel           | Time (ms) | TFLOPS | % cuBLAS | L-inf Error |
 |------------------|-----------|--------|----------|-------------|
-| Naive Scalar     | ~800      | ~0.7   | ~0.2%    | PASS        |
+| Naive Scalar     | 55.804    | 4.9    | 1.8%     | PASS        |
+| Shared Tile      | 34.656    | 7.9    | 3.0%     | PASS        |
 | WMMA Naive       | TBD       | TBD    | TBD      | TBD         |
-| Shared Tile      | TBD       | TBD    | TBD      | TBD         |
 | CUTLASS          | TBD       | TBD    | TBD      | TBD         |
 | CuTe             | TBD       | TBD    | TBD      | TBD         |
-| **cuBLAS (ref)** | ~0.8      | ~345   | 100%     | PASS        |
+| **cuBLAS (ref)** | 1.029     | 267.0  | 100%     | PASS        |
 
-> Results on RTX PRO 6000 Blackwell (96GB GDDR7, sm_90). Updated weekly.
+> Results on RTX PRO 6000 Blackwell (96GB GDDR7).
 
 ---
 
