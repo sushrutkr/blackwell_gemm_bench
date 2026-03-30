@@ -1,6 +1,6 @@
 # Blackwell GEMM Benchmark
 
-Progressive GEMM optimization on **NVIDIA RTX 6000 Ada / Blackwell architectures**, inspired by the Pallas matmul progressive optimization table from the JAX documentation.
+Progressive GEMM optimization on **NVIDIA RTX Blackwell 6000 architecture**.
 
 This repository tracks the evolution of matrix multiplication from textbook SIMT (Single Instruction, Multiple Thread) CUDA kernels all the way up to **Asynchronous CUDA** using Tensor Memory Accelerator (TMA) and Warp Group Matrix Multiply Accumulate (WGMMA) via **CuTe**.
 
@@ -28,7 +28,7 @@ Modern NVIDIA GPUs do not scale performance by having threads calculate memory a
 
 ## 📊 Benchmark Results
 
-> **Hardware:** NVIDIA RTX 6000 Ada / Blackwell (96GB GDDR)  
+> **Hardware:** NVIDIA RTX Blackwell 6000
 > **Target Shape:** FFN Projection (`m = 2048`, `n = 16384`, `k = 4096`)
 
 | Step | Kernel | Time (ms) | TFLOPS | % cuBLAS | Status |
