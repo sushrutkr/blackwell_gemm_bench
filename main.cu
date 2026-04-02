@@ -24,10 +24,14 @@ torch::Tensor cublas_gemm(torch::Tensor A, torch::Tensor B) {
 
 // ── PYBIND ───────────────────────────────────────────────────────
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.def("cublas_gemm",  &cublas_gemm,  "cuBLAS baseline");
-    m.def("naive_scalar", &naive_scalar, "Naive scalar");
-    // m.def("wmma_naive",   &wmma_naive,   "WMMA naive");    // Wk2
-    m.def("shared_tile",  &shared_tile,  "Shared tile");
-    // m.def("cutlass_gemm", &cutlass_gemm, "CUTLASS");       // Wk4
-    // m.def("cute_gemm",    &cute_gemm,    "CuTe");          // Wk5
+    m.def("cublas_gemm",           &cublas_gemm,           "cuBLAS baseline");
+    m.def("naive_scalar",          &naive_scalar,          "Naive scalar");
+    m.def("shared_tile",           &shared_tile,           "Shared tile");
+    m.def("cute_gemm",             &cute_gemm,             "CuTe baseline");
+    // m.def("warp_specialized_gemm", &warp_specialized_gemm, "Warp specialization SM100");
+    // m.def("tiled_epilogue_gemm",   &tiled_epilogue_gemm,   "Tiled epilogue SM100");
+    // m.def("collective_mma_gemm",   &collective_mma_gemm,   "Collective 2CTA MMA SM100");
+    // m.def("persistent_gemm",       &persistent_gemm,       "Persistent kernel");
+    // m.def("dedicated_epilogue_gemm",&dedicated_epilogue_gemm,"Dedicated epilogue warpgroup");
+    // m.def("grid_tiling_gemm",      &grid_tiling_gemm,      "Grid tiling (snake raster)");
 }

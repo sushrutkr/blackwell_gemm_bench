@@ -1,0 +1,29 @@
+
+=== Compiling ===
+
+[1/2] /usr/local/cuda/bin/nvcc -MD -MF cute_gemm.cuda.o.d -DTORCH_EXTENSION_NAME=gemm_kernels -DTORCH_API_INCLUDE_EXTENSION_H -isystem /data/sushrut/blackwell_gemm_bench/myenv/lib/python3.13/site-packages/torch/include -isystem /data/sushrut/blackwell_gemm_bench/myenv/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /opt/miniconda3/include/python3.13 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -arch=sm_90a -std=c++17 -lineinfo -lcuda -I/data/sushrut/blackwell_gemm_bench/cutlass/include -c /data/sushrut/blackwell_gemm_bench/cute_gemm.cu -o cute_gemm.cuda.o 
+[2/2] c++ main.cuda.o naive_scalar.cuda.o shared_tile.cuda.o cute_gemm.cuda.o -shared -lcublas -L/data/sushrut/blackwell_gemm_bench/myenv/lib/python3.13/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart -o gemm_kernels.so
+
+=== Starting ===
+
+
+=== FFN GEMM  A(2048×4096) @ B(4096×16384) = C(2048×16384)  FP16→FP32 ===
+
+[cuBLAS (ref)                       ]   1.050 ms |  261.9 TFLOPS | L-inf 0.0000 | PASS
+[0. Naive Scalar                    ]  55.737 ms |    4.9 TFLOPS | L-inf 0.0000 | PASS
+[1. Shared Tile                     ]  34.619 ms |    7.9 TFLOPS | L-inf 0.0000 | PASS
+[3. CuTe                            ]   4.547 ms |   60.4 TFLOPS | L-inf 0.0000 | PASS
+
+───────────────────────────────────────────────────────────────────────────
+Kernel                               vs cuBLAS
+───────────────────────────────────────────────────────────────────────────
+0. Naive Scalar                           1.9%
+1. Shared Tile                            3.0%
+2. Raw PTX WGMMA+TMA                       N/A
+3. CuTe SM90                             23.1%
+4. Warp Specialization SM100               N/A
+5. Tiled Epilogue SM100                    N/A
+6. Collective 2CTA MMA                     N/A
+7. Persistent Kernel                       N/A
+8. Dedicated Epilogue Warpgroup            N/A
+9. Grid Tiling (Snake)                     N/A
